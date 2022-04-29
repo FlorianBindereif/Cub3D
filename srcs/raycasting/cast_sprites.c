@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eozben <eozben@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 20:51:14 by fbindere          #+#    #+#             */
-/*   Updated: 2022/04/29 18:46:29 by eozben           ###   ########.fr       */
+/*   Updated: 2022/04/29 22:02:39 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 static void	get_sprite_measures(t_spr *sprite)
 {
 	sprite->height = abs((int)(WIN_HEIGHT / sprite->transf.y));
-	sprite->start_y = -sprite->height / 2 + WIN_HEIGHT / 2;
-	if (sprite->start_y < 0)
-		sprite->start_y = 0;
-	sprite->end_y = sprite->height / 2 + WIN_HEIGHT / 2;
-	if (sprite->end_y >= WIN_HEIGHT)
-		sprite->end_y = WIN_HEIGHT - 1;
+	sprite->start.y= -sprite->height / 2 + WIN_HEIGHT / 2;
+	if (sprite->start.y < 0)
+		sprite->start.y = 0;
+	sprite->end.y = sprite->height / 2 + WIN_HEIGHT / 2;
+	if (sprite->end.y >= WIN_HEIGHT)
+		sprite->end.y = WIN_HEIGHT - 1;
 	sprite->width = abs((int)(WIN_HEIGHT / sprite->transf.y));
-	sprite->start_x = -sprite->width / 2 + sprite->scr_x;
-	if (sprite->start_x < 0)
-		sprite->start_x = 0;
-	sprite->end_x = sprite->width / 2 + sprite->scr_x;
-	if (sprite->end_x >= WIN_WIDTH)
-		sprite->end_x = WIN_WIDTH - 1;
+	sprite->start.x = -sprite->width / 2 + sprite->screen.x;
+	if (sprite->start.x < 0)
+		sprite->start.x = 0;
+	sprite->end.x = sprite->width / 2 + sprite->screen.x;
+	if (sprite->end.x >= WIN_WIDTH)
+		sprite->end.x = WIN_WIDTH - 1;
 }
 
 static void	get_sprite_pos(t_cub *cub, t_spr *sprite, int i)
@@ -43,7 +43,7 @@ static void	get_sprite_pos(t_cub *cub, t_spr *sprite, int i)
 			- cub->player.dir.x * spr_pos.y);
 	sprite->transf.y = inv_det * (-cub->camera.plane.y * spr_pos.x
 			+ cub->camera.plane.x * spr_pos.y);
-	sprite->scr_x = (int)((WIN_WIDTH / 2)
+	sprite->screen.x = (int)((WIN_WIDTH / 2)
 			* (1 + sprite->transf.x / sprite->transf.y));
 }
 

@@ -6,7 +6,7 @@
 /*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 20:53:00 by fbindere          #+#    #+#             */
-/*   Updated: 2022/04/28 20:54:15 by fbindere         ###   ########.fr       */
+/*   Updated: 2022/04/29 22:03:06 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	draw_stripe(t_cub *cub, t_spr *sprite, t_ray *ray, int stripe)
 	int				y;
 	unsigned int	color;
 
-	tex.x = (int)(256 * (stripe - (-sprite->width / 2 + sprite->scr_x))
+	tex.x = (int)(256 * (stripe - (-sprite->width / 2 + sprite->screen.x))
 			* sprite->texture->width / sprite->width) / 256;
 	if (sprite->transf.y > 0 && stripe > 0 && stripe < WIN_WIDTH
 		&& sprite->transf.y < ray->perp_wall_dist[stripe])
 	{
-		y = sprite->start_y;
-		while (y < sprite->end_y)
+		y = sprite->start.y;
+		while (y < sprite->end.y)
 		{
 			d = y * 256 - WIN_HEIGHT * 128 + sprite->height * 128;
 			tex.y = ((d * sprite->texture->height) / sprite->height) / 256;
@@ -58,8 +58,8 @@ void	draw_sprite(t_cub *cub, t_spr *sprite, t_ray *ray)
 {
 	int					stripe;
 
-	stripe = sprite->start_x;
-	while (stripe < sprite->end_x)
+	stripe = sprite->start.x;
+	while (stripe < sprite->end.x)
 	{	
 		draw_stripe(cub, sprite, ray, stripe);
 		stripe++;

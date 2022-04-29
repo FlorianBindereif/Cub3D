@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   draw_floor_ceiling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:41:45 by fbindere          #+#    #+#             */
-/*   Updated: 2022/04/28 20:29:47 by fbindere         ###   ########.fr       */
+/*   Updated: 2022/04/29 22:09:22 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 void	cast_floor_ceiling(t_cub *cub)
 {
-	unsigned int	color;
-	int				y;
-	int				x;
+	unsigned int	clr;
+	t_coord			pixel;
 
-	y = 0;
-	while (y < WIN_HEIGHT)
+	pixel.y = 0;
+	while (pixel.y < WIN_HEIGHT)
 	{
-		x = 0;
-		while (x < WIN_WIDTH)
+		pixel.x = 0;
+		while (pixel.x < WIN_WIDTH)
 		{
-			color = cub->map.f_color;
-			color = (color >> 1) & 8355711;
-			ft_mlx_pixel_put(&cub->img, x, y, color);
-			color = cub->map.c_color;
-			color = (color >> 1) & 8355711;
-			ft_mlx_pixel_put(&cub->img, x, WIN_HEIGHT - y - 1, color);
-			x++;
+			clr = cub->map.f_color;
+			clr = (clr >> 1) & 8355711;
+			ft_mlx_pixel_put(&cub->img, pixel.x, pixel.y, clr);
+			clr = cub->map.c_color;
+			clr = (clr >> 1) & 8355711;
+			ft_mlx_pixel_put(&cub->img, pixel.x, WIN_HEIGHT - pixel.y - 1, clr);
+			pixel.x++;
 		}
-		y++;
+		pixel.y++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eozben <eozben@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 20:19:42 by fbindere          #+#    #+#             */
-/*   Updated: 2022/04/29 18:46:34 by eozben           ###   ########.fr       */
+/*   Updated: 2022/04/29 22:06:10 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ static void	set_side_dist(t_ray *ray, t_player *player)
 {
 	if (ray->dir.x < 0)
 	{
-		ray->side_dist.x = (player->pos.x - ray->map_x) * ray->delta_dist.x;
-		ray->step_x = -1;
+		ray->side_dist.x = (player->pos.x - ray->map.x) * ray->delta_dist.x;
+		ray->step.x = -1;
 	}
 	else
 	{
-		ray->side_dist.x = (ray->map_x + 1 - player->pos.x) * ray->delta_dist.x;
-		ray->step_x = 1;
+		ray->side_dist.x = (ray->map.x + 1 - player->pos.x) * ray->delta_dist.x;
+		ray->step.x = 1;
 	}
 	if (ray->dir.y < 0)
 	{
-		ray->side_dist.y = (player->pos.y - ray->map_y) * ray->delta_dist.y;
-		ray->step_y = -1;
+		ray->side_dist.y = (player->pos.y - ray->map.y) * ray->delta_dist.y;
+		ray->step.y = -1;
 	}
 	else
 	{
-		ray->side_dist.y = (ray->map_y + 1 - player->pos.y) * ray->delta_dist.y;
-		ray->step_y = 1;
+		ray->side_dist.y = (ray->map.y + 1 - player->pos.y) * ray->delta_dist.y;
+		ray->step.y = 1;
 	}
 }
 
@@ -67,16 +67,16 @@ static void	perform_dda(t_ray *ray, t_cub *cub, int x)
 		if (ray->side_dist.x < ray->side_dist.y)
 		{
 			ray->side_dist.x += ray->delta_dist.x;
-			ray->map_x += ray->step_x;
+			ray->map.x += ray->step.x;
 			ray->hit = x_side;
 		}
 		else
 		{
 			ray->side_dist.y += ray->delta_dist.y;
-			ray->map_y += ray->step_y;
+			ray->map.y += ray->step.y;
 			ray->hit = y_side;
 		}
-		if (is_obstacle(cub->map.map[ray->map_y][ray->map_x]))
+		if (is_obstacle(cub->map.map[ray->map.y][ray->map.x]))
 			hit = 1;
 	}
 	if (ray->hit == x_side)
@@ -93,8 +93,8 @@ void	cast_walls(t_cub *cub, t_ray *ray)
 	while (x < WIN_WIDTH)
 	{
 		set_ray_dir_vector(cub, ray, x);
-		ray->map_x = (int)cub->player.pos.x;
-		ray->map_y = (int)cub->player.pos.y;
+		ray->map.x = (int)cub->player.pos.x;
+		ray->map.y = (int)cub->player.pos.y;
 		set_delta_dist(ray);
 		set_side_dist(ray, &cub->player);
 		perform_dda(ray, cub, x);

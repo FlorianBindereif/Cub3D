@@ -6,7 +6,7 @@
 /*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 20:27:10 by fbindere          #+#    #+#             */
-/*   Updated: 2022/04/28 20:29:41 by fbindere         ###   ########.fr       */
+/*   Updated: 2022/04/29 22:06:38 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	get_texture_x(t_cub *cub, t_ray *ray, t_text *text, int x)
 
 static void	get_text_type(t_cub *cub, t_ray *ray, t_text *text)
 {
-	if (cub->map.map[ray->map_y][ray->map_x] == 'D')
+	if (cub->map.map[ray->map.y][ray->map.x] == 'D')
 		text->dir = DOOR;
 	else if (ray->hit == y_side)
 	{

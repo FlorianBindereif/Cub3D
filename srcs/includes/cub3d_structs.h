@@ -6,7 +6,7 @@
 /*   By: fbindere <fbindere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 17:53:29 by eozben            #+#    #+#             */
-/*   Updated: 2022/04/29 21:08:19 by fbindere         ###   ########.fr       */
+/*   Updated: 2022/04/29 22:04:20 by fbindere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ typedef struct s_ray
 	t_point		side_dist;
 	t_point		delta_dist;
 	t_side		hit;
-	int			map_x;
-	int			map_y;
-	int			step_x;
-	int			step_y;
+	t_coord		map;
+	t_coord		step;
 	double		perp_wall_dist[WIN_WIDTH];
 }				t_ray;
 
@@ -95,14 +93,11 @@ typedef struct s_spr
 	t_stype	type;
 	t_img	*texture;
 	double	distance;
-	int		scr_x;
-	int		scr_y;
+	t_coord	screen;
 	int		height;
 	int		width;
-	int		start_x;
-	int		end_x;
-	int		start_y;
-	int		end_y;
+	t_coord	start;
+	t_coord	end;
 }			t_spr;
 
 typedef struct s_minimap
